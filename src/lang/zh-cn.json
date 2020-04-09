@@ -67,7 +67,7 @@
 
     "Service Status":"服务状态",
     "We're sorry but the website is currently undergoing maintenance.":"很抱歉，此网站目前正在进行维护。",
-    "You’ll be automatically redirected when the maintenance is completed.":"在维护完成后，系统将自动重定向到您要访问的页面。",
+    "You'll be automatically redirected when the maintenance is completed.":"在维护完成后，系统将自动重定向到您要访问的页面。",
 
     "Please enter a Reference Link":"请输入参考链接",
     "Reference Link":"参考链接",
@@ -311,6 +311,14 @@
     "Reset Project Data":"重置项目数据",
     "Delete Project":"删除项目",
     "API Key":"API 密钥",
+    "Enable":"启用",
+    "Disable":"禁用",
+    "Are you sure you want to enable the API key?":"您确定要启用API密钥吗？",
+    "ENABLE API KEY":"启用API密钥",
+    "An error occurred while enabling the API key.":"启用API密钥时发生错误。",
+    "Are you sure you want to disable the API key?":"您确定要禁用API密钥吗？",
+    "DISABLE API KEY":"禁用API密钥",
+    "An error occurred while disabling the API key.":"禁用API密钥时发生错误。",
     "Notes":"备注",
     "Payment Number":"付款编号",
     "Actions":"操作",

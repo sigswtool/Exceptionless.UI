@@ -1,12 +1,10 @@
-FROM alekzonder/puppeteer:1.3.0 AS base
+FROM buildkite/puppeteer:v1.15.0 AS base
 WORKDIR /app
 
-USER root
-RUN apt-get update && \
-    apt-get install -yq git
-USER pptruser
+RUN apt-get update \
+     && apt-get install -y git --no-install-recommends
 
-COPY src/package.json src/bower.json src/.bowerrc ./
+COPY src/package.json src/package-lock.json src/bower.json src/.bowerrc ./
 
 # dependencies
 
@@ -16,13 +14,16 @@ WORKDIR /app
 RUN npm set progress=false && \
     npm config set depth 0
 
-RUN npm install && \
+RUN npm ci && \
     npx bower --allow-root install
 
 # build
 
 FROM dependencies AS build
 WORKDIR /app
+
+ARG UI_VERSION=2.0.0-dev
+ENV UI_VERSION=$UI_VERSION
 
 COPY src/. .
 
@@ -34,7 +35,6 @@ RUN npx grunt build
 FROM build AS testrunner
 WORKDIR /app
 
-USER pptruser
 ENTRYPOINT [ "npx", "grunt", "test" ]
 
 # ui
@@ -45,9 +45,7 @@ COPY --from=build /app/dist ./
 COPY bootstrap /usr/local/bin/bootstrap
 COPY nginx-site.conf /etc/nginx/conf.d/default.conf
 
-RUN rm -rf /app/app_data && \
-  rm /app/web.config && \
-  chmod +x /usr/local/bin/bootstrap && \
+RUN chmod +x /usr/local/bin/bootstrap && \
   echo "daemon off;" >> /etc/nginx/nginx.conf
 
 ENTRYPOINT [ "bootstrap" ]
